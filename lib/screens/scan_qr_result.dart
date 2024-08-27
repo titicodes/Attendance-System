@@ -86,7 +86,7 @@ class _ScanResultState extends State<ScanResult> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
-            "QResent",
+            "Attandance Management",
           ),
         ),
         body: Center(

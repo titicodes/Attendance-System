@@ -6,6 +6,8 @@ import 'package:qresent/model/course_model.dart';
 import 'package:qresent/model/user_model.dart';
 import 'dart:math';
 
+import 'login_screen.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -28,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String? dropdownValue;
 
-  List listItem = ["Student", "Teacher"];
+  List listItem = ["Student", "Teacher", 'Admin'];
   List<CourseModel> _coursesList = [];
   List<CourseModel> _coursesListForUserType = [];
   List<bool> _isChecked = [];
@@ -74,6 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
 
     _isChecked = List<bool>.filled(_coursesListForUserType.length, false);
+    print(
+        "Filtered Course List Length: ${_coursesListForUserType.length}"); // Debugging line
   }
 
   getChipCourses() {
@@ -376,6 +380,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 dropdownValue = newValue!;
                                 _courses = [];
                               });
+                              print("Dropdown Value Selected: $dropdownValue");
                               getCoursesForUseType();
                             },
                             items: listItem.map((value) {
@@ -440,6 +445,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                 ),
+                const Text("Already have an account?"),
+                TextButton(
+                  onPressed: () {
+                    // Navigate to LoginScreen
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Sign In",
+                    style: TextStyle(
+                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 30.0,
@@ -477,27 +501,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void signUp(String email, String password) async {
-  if (_formKey.currentState!.validate()) {
-    try {
-       await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-      // Save user information to Firestore
-      postDetailsToFirestore();
+        // Save user information to Firestore
+        postDetailsToFirestore();
 
-      // Navigate to login screen
-      Navigator.pushReplacementNamed(context, '/login');
-      
-      Fluttertoast.showToast(msg: "Registration Successful");
+        // Navigate to login screen
+        Navigator.pushReplacementNamed(context, '/login');
 
-    } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+        Fluttertoast.showToast(msg: "Registration Successful");
+      } catch (e) {
+        Fluttertoast.showToast(msg: e.toString());
+      }
     }
   }
-}
-
 
   // void signUp(String email, String password) async {
   //   if (_formKey.currentState!.validate()) {
@@ -520,11 +542,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     userModel.firstName = firstNameController.text;
     userModel.lastName = lastNameController.text;
     userModel.assignedCourses = _courses;
+    // if (dropdownValue == "Student") {
+    //   userModel.group = "-";
+    //   userModel.accessLevel = "0";
+    // } else if (dropdownValue == "Teacher") {
+    //   userModel.accessLevel = "1";
+    // }
+
+    // if (dropdownValue == "Teacher") {
+    //   for (var uid in _courses) {
+    //     coursesRef.doc(uid).update({
+    //       "AssignedProfessor": "${userModel.firstName} ${userModel.lastName}"
+    //     });
+    //   }
+    // }
     if (dropdownValue == "Student") {
       userModel.group = "-";
-      userModel.accessLevel = "0";
+      userModel.accessLevel = "student";
     } else if (dropdownValue == "Teacher") {
-      userModel.accessLevel = "1";
+      userModel.accessLevel = "teacher";
+    } else if (dropdownValue == "Admin") {
+      userModel.accessLevel = "admin";
     }
 
     if (dropdownValue == "Teacher") {
@@ -534,7 +572,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
       }
     }
-
     await firebaseFirestore
         .collection("Users")
         .doc(user.uid)

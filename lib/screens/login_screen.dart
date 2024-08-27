@@ -161,35 +161,41 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) {
+            .then((uid) async {
           User? user = FirebaseAuth.instance.currentUser;
-          UserModel currentUser = UserModel();
+          print("User signed in: ${user?.uid}"); // Debugging line
 
-          FirebaseFirestore.instance
-              .collection("Users")
-              .doc(user!.uid)
-              .get()
-              .then((DocumentSnapshot ds) {
-            currentUser = UserModel.fromMap(ds.data());
+          if (user != null) {
+            DocumentSnapshot ds = await FirebaseFirestore.instance
+                .collection("Users")
+                .doc(user.uid)
+                .get();
 
-            if (currentUser.accessLevel == '0') {
+            UserModel currentUser = UserModel.fromMap(ds.data());
+            print(
+                "User access level: ${currentUser.accessLevel}"); // Debugging line
+
+            if (currentUser.accessLevel == 'student') {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const StudentDashboard()));
               Fluttertoast.showToast(msg: "Login Successful");
-            } else if (currentUser.accessLevel == '1') {
-              Navigator.of(context).pushReplacement(
-                  // To change StudentDashboard with TeacherDashboard when this one will be created
-                  MaterialPageRoute(
-                      builder: (context) => const TeacherDashboard()));
+            } else if (currentUser.accessLevel == 'teacher') {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const TeacherDashboard()));
               Fluttertoast.showToast(msg: "Login Successful");
-            } else if (currentUser.accessLevel == '2') {
+            } else if (currentUser.accessLevel == 'admin') {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const AdminDashboard()));
               Fluttertoast.showToast(msg: "Login Successful");
+            } else {
+              Fluttertoast.showToast(msg: "Invalid access level.");
             }
-          });
+          } else {
+            Fluttertoast.showToast(msg: "User is null.");
+          }
         });
       } on FirebaseAuthException catch (error) {
+        // Handle known Firebase Auth errors
         switch (error.code) {
           case "invalid-email":
             errorMessage = "Your email address appears to be malformed.";
@@ -209,11 +215,17 @@ class _LoginScreenState extends State<LoginScreen> {
           case "operation-not-allowed":
             errorMessage = "Signing in with Email and Password is not enabled.";
             break;
-
           default:
-            errorMessage = "An undefined Error happened.";
+            errorMessage = "An undefined Error happened: ${error.message}";
         }
         Fluttertoast.showToast(msg: errorMessage!);
+        print(
+            "FirebaseAuthException: ${error.code} - ${error.message}"); // Debugging line
+      } catch (e) {
+        // Catch any other types of errors
+        errorMessage = "An unexpected error occurred: $e";
+        Fluttertoast.showToast(msg: errorMessage!);
+        print("Error: $e"); // Debugging line
       }
     }
   }

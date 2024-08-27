@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qresent/screens/generate_qr.dart';
+import 'package:qresent/screens/student_profile.dart';
 import 'screens/admin_dashboard.dart';
 import 'screens/courses_screen.dart';
 import 'screens/edit_screen.dart';
@@ -9,6 +11,7 @@ import 'firebase_options.dart';
 import 'screens/register_screen.dart';
 import 'screens/scan_qr_result.dart';
 import 'screens/show_statistics.dart';
+import 'screens/student_dashboard.dart';
 import 'screens/student_home.dart';
 import 'screens/teacher_dashboard.dart';
 
@@ -34,7 +37,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/adminDashBoard': (context) => const AdminDashboard(),
         '/courseContent': (context) => const CoursesScreen(),
-        "/editCourse": (context) => const EditScreen(),
         '/scanResult': (context) => ScanResult(
               barcode: barcode!,
             ),
@@ -42,7 +44,10 @@ class MyApp extends StatelessWidget {
         '/teachersDashboard': (context) => const TeacherDashboard(),
         '/showStat': (context) => const ShowStatistics(
               interval: '',
-            )
+            ),
+        '/profile': (context) => const Profile(),
+        '/editScreen': (context) => const EditScreen(),
+        '/sudentDashboard': (context) => const StudentDashboard(),
       },
       //home: const RegisterScreen(),
     );
