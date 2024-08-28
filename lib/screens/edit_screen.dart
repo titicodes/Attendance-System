@@ -1,7 +1,8 @@
+import 'package:attendance_sys/model/course_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:qresent/model/course_model.dart';
-import 'package:qresent/model/user_model.dart';
+
+import '../model/user_model.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({Key? key}) : super(key: key);

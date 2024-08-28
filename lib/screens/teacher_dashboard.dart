@@ -1,20 +1,20 @@
 import 'dart:io';
 
+import 'package:attendance_sys/model/attendance_model.dart';
+import 'package:attendance_sys/model/course_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:excel/excel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:qresent/model/attendance_model.dart';
-import 'package:qresent/model/course_model.dart';
-import 'package:qresent/model/user_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qresent/screens/login_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:qresent/screens/show_statistics.dart';
 
+import '../model/user_model.dart';
 import 'generate_qr.dart';
+import 'login_screen.dart';
+import 'show_statistics.dart';
 
 class TeacherDashboard extends StatefulWidget {
   const TeacherDashboard({Key? key}) : super(key: key);

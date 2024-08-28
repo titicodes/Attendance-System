@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:qresent/model/attendance_model.dart';
+
+import '../model/attendance_model.dart';
 
 class ShowStatistics extends StatefulWidget {
   const ShowStatistics({
@@ -69,10 +70,7 @@ class _ShowStatisticsState extends State<ShowStatistics> {
                   lineWidth: 15.0,
                   percent: activeList[i] / presentList[i],
                   center: Text(
-                    activeList[i].toString() +
-                        "/" +
-                        presentList[i].toString() +
-                        " active students",
+                    "${activeList[i]}/${presentList[i]} active students",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20.0),

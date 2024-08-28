@@ -1,11 +1,11 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:qresent/model/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:qresent/screens/teacher_dashboard.dart';
+import '../model/user_model.dart';
 import 'student_dashboard.dart';
 import 'admin_dashboard.dart';
+import 'teacher_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

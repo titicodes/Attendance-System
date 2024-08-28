@@ -1,10 +1,10 @@
+import 'package:attendance_sys/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qresent/model/course_model.dart';
-import 'package:qresent/model/user_model.dart';
-import 'package:qresent/screens/login_screen.dart';
+import '../model/course_model.dart';
+import '../model/user_model.dart';
 import 'scan_qr.dart';
 
 class HomePage extends StatefulWidget {

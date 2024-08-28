@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qresent/screens/register_screen.dart';
-import 'package:qresent/screens/courses_screen.dart';
-import 'package:qresent/screens/edit_screen.dart';
+import 'courses_screen.dart';
+import 'edit_screen.dart';
 import 'login_screen.dart';
+import 'register_screen.dart';
 
 class AdminDashboard extends StatefulWidget {
   const AdminDashboard({Key? key}) : super(key: key);

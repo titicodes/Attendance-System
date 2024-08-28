@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qresent/screens/generate_qr.dart';
-import 'package:qresent/screens/student_profile.dart';
 import 'screens/admin_dashboard.dart';
 import 'screens/courses_screen.dart';
 import 'screens/edit_screen.dart';
@@ -13,6 +11,7 @@ import 'screens/scan_qr_result.dart';
 import 'screens/show_statistics.dart';
 import 'screens/student_dashboard.dart';
 import 'screens/student_home.dart';
+import 'screens/student_profile.dart';
 import 'screens/teacher_dashboard.dart';
 
 Future<void> main() async {

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qresent/model/attendance_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../model/attendance_model.dart';
 
 class ScanResult extends StatefulWidget {
   const ScanResult({Key? key, required this.barcode}) : super(key: key);

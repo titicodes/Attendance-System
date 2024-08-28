@@ -1,4 +1,4 @@
-name: qresent
+name: attendance_sys
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -37,7 +37,7 @@ dependencies:
   path_provider: ^2.0.7
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.1
-  flutter_barcode_scanner: ^2.0.0
+  #flutter_barcode_scanner: ^2.0.0
   excel: ^4.0.6
   # Online Database For Data
   fluttertoast: ^8.0.8
@@ -49,6 +49,7 @@ dependencies:
   firebase_storage: ^11.6.0
   firebase_core: ^2.24.2
   cloud_firestore: ^4.14.0
+  flutter_zxing: ^1.7.0
 
 dev_dependencies:
   flutter_test:
